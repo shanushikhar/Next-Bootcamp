@@ -1,3 +1,5 @@
+//dynamic paths & routes
+
 import { useRouter } from "next/router";
 
 export default function RandomName() {
