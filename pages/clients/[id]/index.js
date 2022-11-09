@@ -10,6 +10,18 @@ export default function index() {
     { id: "tyrian", name: "lannister" },
   ];
 
+  function loadProjectHandler() {
+    // if put /jon/snow => will give error so put it like /clients/jon/snow ******* BEST Approach ******
+    // if put jon/snow => will append clients here
+    // router.push("jon/snow");
+    // or
+    //router.push("/clients/jon/snow");
+    router.push({
+      pathname: "/clients/[id]/[randomName]",
+      query: { id: "khalisee", randomName: "Mother of Dragon" },
+    });
+  }
+
   return (
     <div>
       Dynamic Client
@@ -17,13 +29,27 @@ export default function index() {
         <ul>
           {blogs.map((blog) => (
             <li key={blog.id}>
-              <Link href={`${Math.floor(Math.random() * 10)}/${blog.id}`}>
+              <Link
+                href={`/clients/${Math.floor(Math.random() * 10)}/${blog.id}`}
+              >
+                {blog.name}
+              </Link>
+              <br />
+              <Link
+                href={{
+                  pathname: "/clients/[id]/[randomName]",
+                  // or
+                  //pathname: "[id]/[randomName]",
+                  query: { id: blog.id, randomName: blog.name },
+                }}
+              >
                 {blog.name}
               </Link>
             </li>
           ))}
         </ul>
       </div>
+      <button onClick={loadProjectHandler}>Click</button>
     </div>
   );
 }
